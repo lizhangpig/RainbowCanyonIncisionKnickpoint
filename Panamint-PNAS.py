@@ -327,36 +327,7 @@ for kk in range(0,NNprint,1):
         H_vary=(QWW_up**2*Cf/slope_vary/g/Bb_vary**2)**(1/3)
         H_vary[0]=H_vary[1]
         H_vary[-1]=H_vary[-2]
-
-        slope_vary_half=np.dot(HH,slope_vary)
-        T_star_vary=((Cz)**2*g)**(-1/3)*(QWW_up/Bb_vary_half)**(2/3)*(slope_vary_half)**(2/3)/R/D
-        T_star_vary1=fis*T_star_vary-T_critical
-        T_star_vary1[T_star_vary1<0]=0
-        Qac_vary=4*D*(R*D*g)**(1/2)*(T_star_vary1)**nt
-        QS_vary=Qs_feed+(np.dot(np.tri(M+2),Is_vary)[0:-1])*(dx_bar*L_reach)/Bb_value/IF
-        pa_vary[0:-1]=QS_vary/Qac_vary
-        pa_vary[-1]=pa_vary[-2]        
-        Qa_vary=QS_vary
-        Qa_vary[0]=Qs_feed
-        Qa_vary_1=np.append(Qa_vary,Qa_vary[-1])
-        E_vary=IF*beta*Qa_vary_1*(1-pa_vary)
-        part30=-skdot_vary*(1-eta_x_initial)
-        Part3B=-part30*np.dot(Slope_Eta,etab_vary)/dx_bar/(L_reach)
-        etab_vary=etab_vary-Part3B*(365.25*24*60*60)*(dtb)+up_rate_0*(dtb)-E_vary*(365.25*24*60*60)*(dtb)
-        if (etab_down==0):
-            etab_vary[-2]=0+etab_initial[-2]      
-        etab_vary[-1]=etab_vary[-2]      
-        etab_vary[0]=etab_vary[1]
-
-        skdot_vary=(-E_vary[0])/(slope_vary[0]-Slope_series[0])
-        sk_vary=sk_vary+skdot_vary*dtb*(365.25*24*60*60)
         
-        sk0_vary=sk_vary-(XX_end-sk_vary)/(M-1)/2
-        L_end_vary=XX_end+(XX_end-sk_vary)/(M-1)/2
-        L_reach=L_end_vary-sk0_vary
-        xx0_vary=L_end_vary-(1-xx_side)*(L_reach)
-        xx1_vary=XX_end-(eta_x_initial[-2]-eta_x_initial)*(L_reach)
-
         XX00=sk_vary
         YY00=etab_vary[1]+H_T_AB
         eta_top_vary=YY00-0*(xx1_vary-XX00)
